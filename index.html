@@ -71,8 +71,6 @@ nav.scrolled .nav-cta:hover{background:var(--navy);color:var(--white);}
   background:var(--navy);overflow:hidden;
   display:flex;align-items:center;
 }
-
-/* ── VIDEO BACKGROUND ── */
 #hero-video{
   position:absolute;
   inset:0;
@@ -82,8 +80,6 @@ nav.scrolled .nav-cta:hover{background:var(--navy);color:var(--white);}
   object-position:center;
   z-index:1;
 }
-
-/* ── DARK OVERLAY over video so text stays readable ── */
 #hero-overlay{
   position:absolute;
   inset:0;
@@ -95,7 +91,6 @@ nav.scrolled .nav-cta:hover{background:var(--navy);color:var(--white);}
   );
   z-index:2;
 }
-
 .hero-content{
   position:relative;z-index:10;
   padding:0 64px;max-width:760px;
@@ -166,14 +161,11 @@ section{padding:120px 64px;}
 }
 .section-title em{font-style:italic;color:var(--blue-mid);}
 
-/* ── SERVICES — 3 columns ── */
+/* ── SERVICES ── */
 #services{background:var(--white);}
 .services-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:0;
-  margin-top:64px;
-  border:1px solid var(--border);
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:0;margin-top:64px;border:1px solid var(--border);
 }
 .service-card{
   background:var(--off-white);padding:56px 48px;
@@ -240,18 +232,41 @@ section{padding:120px 64px;}
 .proj-wrap{border-right:1px solid var(--border);border-bottom:1px solid var(--border);}
 .proj-wrap:nth-child(2n){border-right:none;}
 .proj-wrap:nth-last-child(-n+2){border-bottom:none;}
-.proj{position:relative;overflow:hidden;cursor:pointer;background:var(--navy-light);height:400px;opacity:1 !important;transform:none !important;}
+.proj{
+  position:relative;overflow:hidden;cursor:pointer;
+  background:var(--navy-light);height:400px;
+  opacity:1 !important;transform:none !important;
+}
+
+/* ── PROJECT IMAGE ── */
+.proj-img{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:cover;
+  object-position:center;
+  display:block;
+  transition:transform 0.6s ease;
+}
+.proj:hover .proj-img{transform:scale(1.04);}
+
+/* ── PROJECT CANVAS (fallback if no image) ── */
 .proj canvas{position:absolute;top:0;left:0;width:100%;height:100%;display:block;}
+
 .proj-overlay{
   position:absolute;inset:0;
   background:linear-gradient(to top,rgba(13,27,42,0.92) 0%,rgba(13,27,42,0) 55%);
   opacity:0;transition:opacity 0.4s;
   display:flex;flex-direction:column;justify-content:flex-end;padding:28px;
+  z-index:2;
 }
 .proj:hover .proj-overlay{opacity:1;}
 .proj-overlay-name{font-size:1.05rem;font-weight:300;color:var(--white);letter-spacing:-0.01em;margin-bottom:4px;}
 .proj-overlay-type{font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--sky);}
-.proj-num{position:absolute;top:14px;right:14px;font-size:0.58rem;letter-spacing:0.1em;color:rgba(255,255,255,0.4);transition:opacity 0.3s;}
+.proj-num{
+  position:absolute;top:14px;right:14px;
+  font-size:0.58rem;letter-spacing:0.1em;color:rgba(255,255,255,0.7);
+  transition:opacity 0.3s;z-index:3;
+}
 .proj:hover .proj-num{opacity:0;}
 .proj-caption{padding:18px 24px;border-top:1px solid var(--border);background:var(--white);}
 .proj-caption-name{font-size:0.92rem;font-weight:400;color:var(--navy);letter-spacing:-0.01em;margin-bottom:4px;}
@@ -419,7 +434,6 @@ nav.scrolled .nav-hamburger span{background:var(--navy);}
 
 <!-- HERO -->
 <section id="hero">
-
   <video
     id="hero-video"
     src="https://pub-74b63b15dc624066a5722d0a6e5751ab.r2.dev/Hero_Video.mp4"
@@ -429,10 +443,7 @@ nav.scrolled .nav-hamburger span{background:var(--navy);}
     playsinline
     preload="auto"
   ></video>
-
-  <!-- Gradient overlay — keeps text legible over any video content -->
   <div id="hero-overlay"></div>
-
   <div class="hero-content">
     <div class="hero-eyebrow">Architectural Rendering Studio</div>
     <h1 class="hero-title">
@@ -730,70 +741,116 @@ document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el => io
 })();
 
 // ── PROJECT GRID ──
+// ★ TO ADD YOUR OWN IMAGES:
+//   1. Upload each render to your Cloudflare R2 bucket
+//   2. Replace the img URL for each project below
+//   3. Update the name and type to match your real projects
+//
+// Example img URL format:
+//   'https://pub-74b63b15dc624066a5722d0a6e5751ab.r2.dev/your-image.jpg'
+//
+// If you leave img as null, the animated placeholder will show instead.
+
 const projects=[
-  {name:'Harbour Point Tower',    type:'Architectural Visualisation', col:'#1a3a6b'},
-  {name:'Victoria Quarter',       type:'CGI / Virtual Staging',       col:'#1e3a5f'},
-  {name:'Meridian House',         type:'Architectural Visualisation', col:'#162a4a'},
-  {name:'Northgate Pavilion',     type:'CGI / Virtual Staging',       col:'#1a3560'},
+  {
+    name: 'Harbour Point Tower',
+    type: 'Architectural Visualisation',
+    img:  null  // ← Replace null with your R2 image URL
+  },
+  {
+    name: 'Victoria Quarter',
+    type: 'CGI / Virtual Staging',
+    img:  null  // ← Replace null with your R2 image URL
+  },
+  {
+    name: 'Meridian House',
+    type: 'Architectural Visualisation',
+    img:  null  // ← Replace null with your R2 image URL
+  },
+  {
+    name: 'Northgate Pavilion',
+    type: 'CGI / Virtual Staging',
+    img:  null  // ← Replace null with your R2 image URL
+  },
 ];
+
+// Fallback canvas colours (used when img is null)
+const fallbackCols = ['#1a3a6b','#1e3a5f','#162a4a','#1a3560'];
+
 const grid=document.getElementById('proj-grid');
 projects.forEach((p,i)=>{
   const wrap=document.createElement('div');wrap.className='proj-wrap';
   const div=document.createElement('div');div.className='proj';
-  const cvs=document.createElement('canvas');
-  cvs.style.cssText='position:absolute;top:0;left:0;width:100%;height:100%;display:block;';
-  div.appendChild(cvs);
+
+  if(p.img){
+    // ── Real image ──
+    const img=document.createElement('img');
+    img.className='proj-img';
+    img.src=p.img;
+    img.alt=p.name;
+    div.appendChild(img);
+  } else {
+    // ── Animated canvas placeholder ──
+    const cvs=document.createElement('canvas');
+    cvs.style.cssText='position:absolute;top:0;left:0;width:100%;height:100%;display:block;';
+    div.appendChild(cvs);
+    function drawScene(){
+      const W=div.offsetWidth,H=div.offsetHeight;
+      if(!W||!H){setTimeout(drawScene,50);return;}
+      cvs.width=W;cvs.height=H;
+      const ctx=cvs.getContext('2d');
+      ctx.clearRect(0,0,W,H);
+      const col=fallbackCols[i];
+      const sky=ctx.createLinearGradient(0,0,0,H*0.65);
+      sky.addColorStop(0,col);sky.addColorStop(1,'#2a4a70');
+      ctx.fillStyle=sky;ctx.fillRect(0,0,W,H*0.65);
+      ctx.fillStyle='#0d1b2a';ctx.fillRect(0,H*0.65,W,H*0.35);
+      ctx.fillStyle='#12243a';ctx.fillRect(0,H*0.72,W,H*0.06);
+      const seed=i*17;
+      const bw=W*(0.28+(seed%5)*0.035),bh=H*(0.46+(seed%6)*0.045);
+      const bx=W*0.5-bw/2+((seed%3)-1)*W*0.05,by=H*0.65-bh;
+      const bf=ctx.createLinearGradient(bx,by,bx+bw,by+bh);
+      bf.addColorStop(0,'#2a5fa5');bf.addColorStop(0.4,'#1e3a6e');bf.addColorStop(1,'#0d1b2a');
+      ctx.fillStyle=bf;ctx.fillRect(bx,by,bw,bh);
+      ctx.fillStyle='rgba(139,184,232,0.22)';ctx.fillRect(bx,by,2,bh);
+      const wR=Math.max(4,Math.floor(bh/14)),wC=Math.max(2,Math.floor(bw/12));
+      const wp=bw/(wC+1),hp=bh/(wR+1);
+      for(let r=1;r<=wR;r++) for(let col2=1;col2<=wC;col2++){
+        if(Math.random()>0.22){
+          ctx.fillStyle=`rgba(139,184,232,${0.25+Math.random()*0.5})`;
+          ctx.fillRect(bx+col2*wp-wp*0.22,by+r*hp-hp*0.28,wp*0.44,hp*0.5);
+        }
+      }
+      [-1,1].forEach(side=>{
+        const fw=side<0?bx*0.85:(W-(bx+bw))*0.8;
+        const fbw=fw*0.55,fbh=H*(0.22+(seed%4)*0.04);
+        const fbx=side<0?W*0.03:bx+bw+W*0.04;
+        if(fbw>12){
+          const ff=ctx.createLinearGradient(fbx,H*0.65-fbh,fbx,H*0.65);
+          ff.addColorStop(0,'#162234');ff.addColorStop(1,'#0d1b2a');
+          ctx.fillStyle=ff;ctx.fillRect(fbx,H*0.65-fbh,fbw,fbh);
+        }
+      });
+      const gx=W*(0.15+(i%2)*0.5),gy=H*0.1;
+      const glow=ctx.createRadialGradient(gx,gy,0,gx,gy,H*0.28);
+      glow.addColorStop(0,'rgba(139,184,232,0.14)');glow.addColorStop(1,'rgba(0,0,0,0)');
+      ctx.fillStyle=glow;ctx.fillRect(0,0,W,H*0.65);
+    }
+    window.addEventListener('resize',drawScene);
+    setTimeout(drawScene,200+i*20);
+  }
+
   const ov=document.createElement('div');ov.className='proj-overlay';
   ov.innerHTML=`<div class="proj-overlay-name">${p.name}</div><div class="proj-overlay-type">${p.type}</div>`;
   div.appendChild(ov);
+
   const num=document.createElement('div');num.className='proj-num';
   num.textContent=String(i+1).padStart(2,'0');div.appendChild(num);
+
   const caption=document.createElement('div');caption.className='proj-caption';
   caption.innerHTML=`<div class="proj-caption-name">${p.name}</div><div class="proj-caption-type">${p.type}</div>`;
+
   wrap.appendChild(div);wrap.appendChild(caption);grid.appendChild(wrap);
-  function drawScene(){
-    const W=div.offsetWidth,H=div.offsetHeight;
-    if(!W||!H){setTimeout(drawScene,50);return;}
-    cvs.width=W;cvs.height=H;
-    const ctx=cvs.getContext('2d');
-    ctx.clearRect(0,0,W,H);
-    const sky=ctx.createLinearGradient(0,0,0,H*0.65);
-    sky.addColorStop(0,p.col);sky.addColorStop(1,'#2a4a70');
-    ctx.fillStyle=sky;ctx.fillRect(0,0,W,H*0.65);
-    ctx.fillStyle='#0d1b2a';ctx.fillRect(0,H*0.65,W,H*0.35);
-    ctx.fillStyle='#12243a';ctx.fillRect(0,H*0.72,W,H*0.06);
-    const seed=i*17;
-    const bw=W*(0.28+(seed%5)*0.035),bh=H*(0.46+(seed%6)*0.045);
-    const bx=W*0.5-bw/2+((seed%3)-1)*W*0.05,by=H*0.65-bh;
-    const bf=ctx.createLinearGradient(bx,by,bx+bw,by+bh);
-    bf.addColorStop(0,'#2a5fa5');bf.addColorStop(0.4,'#1e3a6e');bf.addColorStop(1,'#0d1b2a');
-    ctx.fillStyle=bf;ctx.fillRect(bx,by,bw,bh);
-    ctx.fillStyle='rgba(139,184,232,0.22)';ctx.fillRect(bx,by,2,bh);
-    const wR=Math.max(4,Math.floor(bh/14)),wC=Math.max(2,Math.floor(bw/12));
-    const wp=bw/(wC+1),hp=bh/(wR+1);
-    for(let r=1;r<=wR;r++) for(let col=1;col<=wC;col++){
-      if(Math.random()>0.22){
-        ctx.fillStyle=`rgba(139,184,232,${0.25+Math.random()*0.5})`;
-        ctx.fillRect(bx+col*wp-wp*0.22,by+r*hp-hp*0.28,wp*0.44,hp*0.5);
-      }
-    }
-    [-1,1].forEach(side=>{
-      const fw=side<0?bx*0.85:(W-(bx+bw))*0.8;
-      const fbw=fw*0.55,fbh=H*(0.22+(seed%4)*0.04);
-      const fbx=side<0?W*0.03:bx+bw+W*0.04;
-      if(fbw>12){
-        const ff=ctx.createLinearGradient(fbx,H*0.65-fbh,fbx,H*0.65);
-        ff.addColorStop(0,'#162234');ff.addColorStop(1,'#0d1b2a');
-        ctx.fillStyle=ff;ctx.fillRect(fbx,H*0.65-fbh,fbw,fbh);
-      }
-    });
-    const gx=W*(0.15+(i%2)*0.5),gy=H*0.1;
-    const glow=ctx.createRadialGradient(gx,gy,0,gx,gy,H*0.28);
-    glow.addColorStop(0,'rgba(139,184,232,0.14)');glow.addColorStop(1,'rgba(0,0,0,0)');
-    ctx.fillStyle=glow;ctx.fillRect(0,0,W,H*0.65);
-  }
-  window.addEventListener('resize',drawScene);
-  setTimeout(drawScene,200+i*20);
 });
 
 // ── HAMBURGER MENU ──
