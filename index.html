@@ -478,8 +478,8 @@ nav.scrolled .nav-hamburger span{background:var(--navy);}
         <path d="M20 42V32h8v10"></path>
         <line x1="6" y1="28" x2="42" y2="28"></line>
       </svg>
-      <div class="service-name">Architectural Visualisation</div>
-      <p class="service-desc">Photorealistic exterior and interior renders that communicate design intent with precision. From planning applications to client presentations, we bring buildings to life at every stage of the design process.</p>
+      <div class="service-name">Planning & Marketing Visualisation</div>
+      <p class="service-desc">Accurate, photorealistic CGIs produced to support planning applications and development proposals. We understand what local authorities need to see — honest materiality, correct context, and a clear reading of the proposed scheme within its setting. From single dwellings to multi-unit residential developments.</p>
     </div>
     <div class="service-card reveal" style="transition-delay:0.15s">
       <div class="service-num">02</div>
@@ -490,8 +490,8 @@ nav.scrolled .nav-hamburger span{background:var(--navy);}
         <rect x="24" y="16" width="10" height="8" rx="0.5"></rect>
         <path d="M10 28h8M24 28h10"></path>
       </svg>
-      <div class="service-name">CGI / Virtual Staging</div>
-      <p class="service-desc">Digitally furnish and style empty spaces to maximise appeal for sales and marketing. Our virtual staging service provides cost-effective, high-impact imagery for developers, agents, and interior designers alike.</p>
+      <div class="service-name">Design Stage Communication</div>
+      <p class="service-desc">Renders that help architects and developers communicate design intent — to clients, investors, and stakeholders — before a scheme is built. We work across all design stages, translating drawn proposals into images people can genuinely respond to and make decisions from.</p>
     </div>
     <div class="service-card reveal" style="transition-delay:0.25s">
       <div class="service-num">03</div>
@@ -500,8 +500,8 @@ nav.scrolled .nav-hamburger span{background:var(--navy);}
         <polygon points="20,17 20,31 33,24"></polygon>
         <path d="M6 24h4M38 24h4M24 6v4M24 38v4"></path>
       </svg>
-      <div class="service-name">Animated Renders</div>
-      <p class="service-desc">Cinematic fly-through animations and interactive 360° walkthroughs that let clients experience a space before a single brick is laid. Ideal for off-plan sales, planning committees, and investor presentations.</p>
+      <div class="service-name">Interior CGI & Virtual Staging</div>
+      <p class="service-desc">Atmospheric interior visualisations and virtual staging for developers, agents, and interior designers. Whether testing a material palette at design stage or marketing an off-plan unit, we produce imagery that communicates how a space will feel — not just how it's arranged.</p>
     </div>
   </div>
 </section>
@@ -646,55 +646,6 @@ document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el => io
   resize();draw();
 })();
 
-// ── RENDER CANVAS (featured right) ──
-(function(){
-  const c=document.getElementById('render-canvas');
-  if(!c)return;
-  const ctx=c.getContext('2d');
-  let W,H,t=0;
-  function resize(){
-    const p=c.parentElement;
-    W=c.width=p.offsetWidth||400;
-    H=c.height=p.offsetHeight||380;
-  }
-  function draw(){
-    ctx.clearRect(0,0,W,H);t+=0.5;
-    const sky=ctx.createLinearGradient(0,0,0,H*0.62);
-    sky.addColorStop(0,'#1a2e4a');sky.addColorStop(1,'#2a4a70');
-    ctx.fillStyle=sky;ctx.fillRect(0,0,W,H*0.62);
-    ctx.fillStyle='#0d1b2a';ctx.fillRect(0,H*0.62,W,H*0.38);
-    ctx.fillStyle='#12243a';ctx.fillRect(0,H*0.70,W,H*0.08);
-    const buildings=[
-      {x:0.06,w:0.10,h:0.68,floors:13,wc:3},
-      {x:0.18,w:0.13,h:0.55,floors:10,wc:4},
-      {x:0.33,w:0.20,h:0.78,floors:15,wc:5,hero:true},
-      {x:0.55,w:0.12,h:0.62,floors:11,wc:3},
-      {x:0.69,w:0.09,h:0.48,floors:8,wc:2},
-      {x:0.80,w:0.15,h:0.68,floors:13,wc:4},
-    ];
-    buildings.forEach(b=>{
-      const bx=b.x*W,bw=b.w*W,bh=b.h*H,by=H*0.62-bh;
-      const bg=ctx.createLinearGradient(bx,by,bx+bw,by+bh);
-      bg.addColorStop(0,b.hero?'#2a5fa5':'#1e3050');
-      bg.addColorStop(1,b.hero?'#162234':'#0d1b2a');
-      ctx.fillStyle=bg;ctx.fillRect(bx,by,bw,bh);
-      ctx.fillStyle='rgba(139,184,232,0.18)';ctx.fillRect(bx,by,2,bh);
-      const wp=bw/(b.wc+1),hp=bh/(b.floors+1);
-      for(let r=1;r<=b.floors;r++) for(let col=1;col<=b.wc;col++){
-        if(Math.random()<0.92){
-          const fl=Math.sin(t*0.05+r+col*3)*0.5+0.5;
-          ctx.fillStyle=`rgba(139,184,232,${0.25+fl*0.45})`;
-          ctx.fillRect(bx+col*wp-wp*0.22,by+r*hp-hp*0.28,wp*0.44,hp*0.5);
-        }
-      }
-    });
-    for(let y=0;y<H;y+=4){ctx.fillStyle='rgba(0,0,0,0.05)';ctx.fillRect(0,y,W,1);}
-    requestAnimationFrame(draw);
-  }
-  window.addEventListener('resize',resize);
-  resize();draw();
-})();
-
 // ── ABOUT CANVAS ──
 (function(){
   const c=document.getElementById('about-canvas');
@@ -742,57 +693,93 @@ document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el => io
   setTimeout(()=>{resize();draw();},100);
 })();
 
-// ── PROJECT GRID ──
-// ★ TO ADD YOUR OWN IMAGES:
-//   1. Upload each render to your Cloudflare R2 bucket
-//   2. Replace the img URL for each project below
-//   3. Update the name and type to match your real projects
-//
-// Example img URL format:
-//   'https://pub-74b63b15dc624066a5722d0a6e5751ab.r2.dev/your-image.jpg'
-//
-// If you leave img as null, the animated placeholder will show instead.
-
+// ── PROJECT DATA ──
 const projects=[
   {
     name: 'Barn Conversion',
     type: 'Ongoing project',
-    img:  'https://pub-74b63b15dc624066a5722d0a6e5751ab.r2.dev/Bransbury.png'
+    img:  'https://pub-74b63b15dc624066a5722d0a6e5751ab.r2.dev/Bransbury.png',
+    eyebrow: 'Ongoing project · 2025',
+    desc: 'A sympathetic conversion of a traditional agricultural barn into a four-bedroom family home. The brief called for retaining the agricultural character of the structure while introducing a contemporary interior language — exposed steelwork, full-height glazing to the south elevation, and a mezzanine study overlooking the open-plan living space.',
+    meta: [
+      { label: 'Project type', val: 'Residential conversion' },
+      { label: 'Services', val: 'Exterior & interior CGI' },
+      { label: 'Status', val: 'In progress' },
+    ],
+    images: [
+      'https://pub-74b63b15dc624066a5722d0a6e5751ab.r2.dev/Bransbury.png',
+      null,
+      null,
+    ],
+    imgLabels: ['Exterior view', 'Image coming soon', 'Image coming soon']
   },
   {
     name: 'Apartment Renovation',
     type: 'Theoretical Project',
-    img:  'https://pub-74b63b15dc624066a5722d0a6e5751ab.r2.dev/Liverpool_Library.jpg'
+    img:  'https://pub-74b63b15dc624066a5722d0a6e5751ab.r2.dev/Liverpool_Library.jpg',
+    eyebrow: 'Theoretical project · 2024',
+    desc: 'A speculative interior visualisation exploring the adaptive reuse of a Victorian warehouse apartment. The project demonstrates how CGI can be used to test material palettes and spatial arrangements before committing to a full scheme.',
+    meta: [
+      { label: 'Project type', val: 'Interior CGI' },
+      { label: 'Services', val: 'Virtual staging' },
+      { label: 'Status', val: 'Completed' },
+    ],
+    images: [
+      'https://pub-74b63b15dc624066a5722d0a6e5751ab.r2.dev/Liverpool_Library.jpg',
+      null,
+    ],
+    imgLabels: ['Interior view', 'Image coming soon']
   },
   {
     name: 'Residential New Build',
     type: 'Ongoing Project',
-    img:  'https://pub-74b63b15dc624066a5722d0a6e5751ab.r2.dev/HH_Rear.jpeg'
+    img:  'https://pub-74b63b15dc624066a5722d0a6e5751ab.r2.dev/HH_Rear.jpeg',
+    eyebrow: 'Ongoing project · 2025',
+    desc: 'Photorealistic exterior visualisations for a contemporary self-build in a semi-rural setting. Renders were produced to support a full planning application, communicating the relationship between the proposed building and its landscape context.',
+    meta: [
+      { label: 'Project type', val: 'New build' },
+      { label: 'Services', val: 'Planning CGI' },
+      { label: 'Status', val: 'In progress' },
+    ],
+    images: [
+      'https://pub-74b63b15dc624066a5722d0a6e5751ab.r2.dev/HH_Rear.jpeg',
+      null,
+      null,
+    ],
+    imgLabels: ['Rear elevation', 'Image coming soon', 'Image coming soon']
   },
   {
     name: 'Visitor Center',
     type: 'Competition Entry',
-    img:  'https://pub-74b63b15dc624066a5722d0a6e5751ab.r2.dev/Home_Of_Shadows.jpg'
+    img:  'https://pub-74b63b15dc624066a5722d0a6e5751ab.r2.dev/Home_Of_Shadows.jpg',
+    eyebrow: 'Competition entry · 2024',
+    desc: 'Atmospheric competition renders for a proposed visitor centre exploring light and shadow as primary architectural devices. A deliberately dramatic rendering approach was chosen to communicate the experiential quality of the proposal to the judging panel.',
+    meta: [
+      { label: 'Project type', val: 'Cultural / public' },
+      { label: 'Services', val: 'Competition CGI' },
+      { label: 'Status', val: 'Submitted' },
+    ],
+    images: [
+      'https://pub-74b63b15dc624066a5722d0a6e5751ab.r2.dev/Home_Of_Shadows.jpg',
+      null,
+    ],
+    imgLabels: ['Main view', 'Image coming soon']
   },
 ];
 
-// Fallback canvas colours (used when img is null)
 const fallbackCols = ['#1a3a6b','#1e3a5f','#162a4a','#1a3560'];
-
 const grid=document.getElementById('proj-grid');
 projects.forEach((p,i)=>{
   const wrap=document.createElement('div');wrap.className='proj-wrap';
   const div=document.createElement('div');div.className='proj';
 
   if(p.img){
-    // ── Real image ──
     const img=document.createElement('img');
     img.className='proj-img';
     img.src=p.img;
     img.alt=p.name;
     div.appendChild(img);
   } else {
-    // ── Animated canvas placeholder ──
     const cvs=document.createElement('canvas');
     cvs.style.cssText='position:absolute;top:0;left:0;width:100%;height:100%;display:block;';
     div.appendChild(cvs);
@@ -851,6 +838,9 @@ projects.forEach((p,i)=>{
 
   const caption=document.createElement('div');caption.className='proj-caption';
   caption.innerHTML=`<div class="proj-caption-name">${p.name}</div><div class="proj-caption-type">${p.type}</div>`;
+
+  div.style.cursor='pointer';
+  caption.style.cursor='pointer';
 
   wrap.appendChild(div);wrap.appendChild(caption);grid.appendChild(wrap);
 });
