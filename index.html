@@ -164,7 +164,7 @@ section{padding:120px 64px;}
 /* ── SERVICES ── */
 #services{background:var(--white);}
 .services-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);
+  display:grid;grid-template-columns:repeat(4,1fr);
   gap:0;margin-top:64px;border:1px solid var(--border);
 }
 .service-card{
@@ -345,7 +345,10 @@ nav.scrolled .nav-hamburger span{background:var(--navy);}
   .services-grid{grid-template-columns:1fr 1fr;}
   .service-card:nth-child(2){border-right:none;}
   .service-card:nth-child(1),.service-card:nth-child(2){border-bottom:1px solid var(--border);}
-  .service-card:nth-child(3){border-right:none;}
+  .service-card:nth-child(3){border-bottom:1px solid var(--border);}
+  .service-card:nth-child(4){border-right:none;}
+  .service-card:nth-child(3){border-right:1px solid var(--border);}
+  .service-card:last-child{border-bottom:none;}
   .service-card{padding:40px 32px;}
   .featured-inner{grid-template-columns:1fr;}
   .featured-left{padding:64px 32px;border-right:none;border-bottom:1px solid rgba(255,255,255,0.08);}
@@ -497,6 +500,22 @@ nav.scrolled .nav-hamburger span{background:var(--navy);}
       </svg>
       <div class="service-name">Interior CGI & Virtual Staging</div>
       <p class="service-desc">Atmospheric interior visualisations and virtual staging for developers, agents, and interior designers. Whether testing a material palette at design stage or marketing an off-plan unit, we produce imagery that communicates how a space will feel — not just how it's arranged.</p>
+    </div>
+    <div class="service-card reveal" style="transition-delay:0.35s">
+      <div class="service-num">04</div>
+      <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2">
+        <rect x="4" y="12" width="40" height="26" rx="1"></rect>
+        <path d="M4 18h40"></path>
+        <circle cx="10" cy="15" r="1.2" fill="currentColor" stroke="none"></circle>
+        <circle cx="15" cy="15" r="1.2" fill="currentColor" stroke="none"></circle>
+        <circle cx="20" cy="15" r="1.2" fill="currentColor" stroke="none"></circle>
+        <path d="M16 28 Q24 22 32 28" stroke-linecap="round"></path>
+        <path d="M12 34 Q24 26 36 34" stroke-linecap="round"></path>
+        <line x1="24" y1="38" x2="24" y2="44"></line>
+        <line x1="18" y1="44" x2="30" y2="44"></line>
+      </svg>
+      <div class="service-name">Animation & Walkthrough Films</div>
+      <p class="service-desc">Short perspective animations and walkthrough films that bring a scheme to life in a way that static images can't. Ideal for planning presentations, client sign-off, and marketing — a moving sequence communicates sequence, scale, and spatial quality in seconds. Produced to complement a CGI package or as a standalone deliverable.</p>
     </div>
   </div>
 </section>
