@@ -925,6 +925,21 @@ mobileMenu.querySelectorAll('a').forEach(link=>{
     document.body.style.overflow='';
   });
 });
+  
+// ── IOS VIDEO AUTOPLAY NUDGE ──
+(function(){
+  const v = document.getElementById('hero-video');
+  if(!v) return;
+  // Attempt play immediately
+  const p = v.play();
+  if(p !== undefined){
+    p.catch(() => {
+      // Autoplay blocked — try again on first user interaction
+      const tryPlay = () => { v.play(); document.removeEventListener('touchstart', tryPlay); };
+      document.addEventListener('touchstart', tryPlay, {once: true});
+    });
+  }
+})();
 </script>
 </body>
 </html>
